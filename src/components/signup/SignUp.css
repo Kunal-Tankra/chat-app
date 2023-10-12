@@ -1,0 +1,54 @@
+body {
+   
+    /* height: 100vh;  */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    background-color: #444654; 
+  }
+  
+  .signup-container {
+    margin: 5rem auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff; /* Background color for the signup container */
+    border-radius: 10px;
+    width: 80%; /* Set width to 80% of the viewport */
+    max-width: 400px; /* Add max-width for better readability */
+    background-color: #343541;
+  }
+  
+  .signup-heading {
+    color: #444654; /* Heading color */
+    margin-bottom: 20px;
+  }
+  
+  .signup-form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px; /* Adding border radius to input boxes */
+    width: 100%; /* Make input width 100% */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  .signup-form button {
+    padding: 10px 20px;
+    background-color: #19C37D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%; /* Make button width 100% */
+  }
+  
+  .signup-form button:hover {
+    background-color: #15a86b;
+  }
+  
+  /* Adding some margin between inputs and the submit button */
+  .signup-form button {
+    margin-top: 10px;
+  }
+  
