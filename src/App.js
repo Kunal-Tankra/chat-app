@@ -8,7 +8,7 @@ import SignUp from './components/signup/SignUp';
 
 
 function App() {
-
+console.log("or harsh")
 
   return (
     <>
