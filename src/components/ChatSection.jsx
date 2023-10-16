@@ -147,42 +147,42 @@ const ChatSection = () => {
     return (
         <>
             {/* audio message */}
-            <audio ref={audioRef} controls  style={{ display: "none" }}>
-                <source src="notification/Sneej.mp3" type="audio/mp3" />
+            <audio ref={audioRef} controls style={{ display: "none" }}>
+                <source src="notification/HeyMaaMataji.mp3" type="audio/mp3" />
                 Your browser does not support the audio element.
             </audio>
 
             <div className={`${styles.chat_app}`} >
-                {/* chat group name and info */}
-                <nav className="navbar  pe-5 navbar-expand-lg navbar-dark bg-dark" >
-                    <div className="container-fluid">
-                        <span className="navbar-brand text-uppercase ms-5" style={{letterSpacing: "1px"}}>{roomInfo.room_name}</span>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav ms-auto mb-2 me-5 mb-lg-0">
-                              
-                                <li className="nav-item dropdown ">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Members
-                                    </a>
-                                    <ul className={`dropdown-menu ${styles.dropDown} bg-dark`} aria-labelledby="navbarDropdown">
-                                        {roomInfo.user_info?.map(user=><li key={user.user_id} className="dropdown-item bg-dark text-light" >{user.user_name}</li>)}
-                                        
-                                     
-                                    </ul>
-                                </li>
-                                
-                            </ul>
-                           
-                        </div>
-                    </div>
-                </nav>
                 <h1 className={styles.bgHeading}>ChatAPP</h1>
 
                 {roomId &&
                     <>
+                        {/* chat group name and info */}
+                        <nav className="navbar  pe-5 navbar-expand-lg navbar-dark bg-dark" >
+                            <div className="container-fluid">
+                                <span className="navbar-brand text-uppercase ms-5" style={{ letterSpacing: "1px" }}>{roomInfo.room_name}</span>
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul className="navbar-nav ms-auto mb-2 me-5 mb-lg-0">
+
+                                        <li className="nav-item dropdown ">
+                                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Members
+                                            </a>
+                                            <ul className={`dropdown-menu ${styles.dropDown} bg-dark`} aria-labelledby="navbarDropdown">
+                                                {roomInfo.user_info?.map(user => <li key={user.user_id} className="dropdown-item bg-dark text-light" >{user.user_name}</li>)}
+
+
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </nav>
 
                         <div id='msgContainer' ref={msgContainer} onScroll={(e) => { setScrollBarPosition(e.target.scrollTop) }} className={`${styles.chat_messages} `}>
                             {messages.map((msg) => (

@@ -5,8 +5,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: '',
-    confirmPassword: '',
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -44,13 +43,6 @@ const SignUp = () => {
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          placeholder="Confirm Password"
         />
         <button type="submit">Sign Up</button>
       </form>
