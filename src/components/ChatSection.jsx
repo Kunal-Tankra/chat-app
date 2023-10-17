@@ -108,7 +108,9 @@ const ChatSection = () => {
 
                         // call notification
                         console.log(audioRef)
-                        audioRef.current.play()
+                        audioRef.current?.play().catch(err=>{
+                            console.log(err, "err in play audio")
+                        })
                     }
                 }, 0);
             });
@@ -161,14 +163,14 @@ const ChatSection = () => {
                         <nav className="navbar  pe-5 navbar-expand-lg navbar-dark bg-dark" >
                             <div className="container-fluid">
                                 <span className="navbar-brand text-uppercase ms-5" style={{ letterSpacing: "1px" }}>{roomInfo.room_name}</span>
-                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
-                                </button>
-                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul className="navbar-nav ms-auto mb-2 me-5 mb-lg-0">
+                                </button> */}
+                                <div  id="navbarSupportedContent">
+                                    <ul className="navbar-nav   ms-5 mb-lg-0">
 
                                         <li className="nav-item dropdown ">
-                                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <a className="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Members
                                             </a>
                                             <ul className={`dropdown-menu ${styles.dropDown} bg-dark`} aria-labelledby="navbarDropdown">
