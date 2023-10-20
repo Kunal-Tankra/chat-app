@@ -167,7 +167,7 @@ const ChatSection = () => {
                                     <span className="navbar-toggler-icon"></span>
                                 </button> */}
                                 <div  id="navbarSupportedContent">
-                                    <ul className="navbar-nav   ms-5 mb-lg-0">
+                                    <ul className="navbar-nav   ms-5 mb-lg-0 me-5">
 
                                         <li className="nav-item dropdown ">
                                             <a className="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
