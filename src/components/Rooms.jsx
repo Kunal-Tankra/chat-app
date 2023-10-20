@@ -8,7 +8,6 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 const Rooms = () => {
   // states
   const [rooms, setRooms] = useState([]);
-  const [roomUsers, setRoomUsers] = useState([]); // State for storing room users
 
   // params
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,14 +27,7 @@ const Rooms = () => {
       .then(res => setRooms(res.data.rooms))
   }, []);
 
-  // Fetch room users when the room changes
-  useEffect(() => {
-    if (roomId) {
-      axios.get(`${process.env.REACT_APP_API_KEY}/get_users?room_id=${roomId}`)
-        .then(res => setRoomUsers(res.data.users))
-        .catch(err => console.log(err));
-    }
-  }, [roomId]);
+  
 
   // handle log out 
   const handleLogOut = () => {
@@ -54,9 +46,11 @@ const Rooms = () => {
       .catch(err => console.log(err))
   }
 
+ 
+
   return (
     <div className={styles.rooms}>
-      <div  className={styles.newGroup}>
+      <div onClick={()=>setShowAddMembPopup(true)}  className={styles.newGroup}>
         + New Group
       </div>
 
@@ -71,7 +65,7 @@ const Rooms = () => {
       </ul>
 
       <div className={styles.currUser}>
-        <span class="material-symbols-outlined">
+        <span className="material-symbols-outlined">
           account_circle
         </span>
 
