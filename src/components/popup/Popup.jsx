@@ -3,15 +3,25 @@ import styles from "./Popup.module.css"
 import appContext from '../../appContext/Context'
 import axios from 'axios'
 import { handleGetRooms } from '../Rooms'
+import { handleGetChats } from '../ChatSection'
+import { useSearchParams } from 'react-router-dom'
 
 const Popup = () => {
     // state
     const [newRoomName, setnewRoomName] = useState("");
+    const [joinRoomName, setJoinRoomName] = useState("");
 
     // context
-    const { showAddMembPopup, setShowAddMembPopup,allRooms } = useContext(appContext)
+    const { showAddMembPopup, setShowAddMembPopup, allRooms } = useContext(appContext)
 
-  
+    // curr user from local storage
+    const currUser = JSON.parse(localStorage.getItem("user_data"))
+
+    // params
+    const [searchParams, setSearchParams] = useSearchParams();
+    const roomId = parseInt(searchParams.get("id"))
+
+
 
 
     // handle create and join in group
@@ -21,7 +31,11 @@ const Popup = () => {
         let url = ""
         let payload = {}
         if (showAddMembPopup === "join-group") {
-            url = `${process.env.REACT_APP_API_KEY}/`
+            url = `${process.env.REACT_APP_API_KEY}/create_user_and_room`
+            payload = {
+                name: currUser.name,
+                room_name: joinRoomName
+            }
         }
         else {
             url = `${process.env.REACT_APP_API_KEY}/create_room`
@@ -33,11 +47,18 @@ const Popup = () => {
         axios.post(url, payload)
             .then(res => {
 
-                handleGetRooms()
+                if (showAddMembPopup === "create-group") { //call if only creating the new group
+
+                    handleGetRooms()
+                }
+                else {                                     // get all chats and room info 
+                    handleGetChats(roomId)
+                }
                 setShowAddMembPopup(null)
             })
             .catch(err => console.log(err, "err"))
     }
+
 
     return (
         <div className={styles.container}>
@@ -51,8 +72,7 @@ const Popup = () => {
                 {showAddMembPopup === "join-group" ?
                     <div className="form-group mb-4">
                         <label htmlFor="exampleFormControlSelect1" className='mb-2' >Select Group</label>
-                        <select className="form-control" id="exampleFormControlSelect1">
-                            <option value="--">--</option>
+                        <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setJoinRoomName(e.target.value)} >
                             {allRooms.map(room => <option key={room.id} value={room.room_name} >{room.room_name}</option>)}
                         </select>
                     </div>
