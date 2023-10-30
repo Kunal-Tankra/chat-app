@@ -11,6 +11,9 @@ const Rooms = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const roomId = parseInt(searchParams.get("id"))
 
+  // state
+  const [isNavClosed, setIsNavClosed] = useState(false);
+
   // curr user from local storage
   const currUser = JSON.parse(localStorage.getItem("user_data"))
 
@@ -18,10 +21,10 @@ const Rooms = () => {
   const navigate = useNavigate()
 
   // context
-  const {  setShowAddMembPopup,allRooms, setAllRooms } = useContext(appContext)
+  const { setShowAddMembPopup, allRooms, setAllRooms } = useContext(appContext)
 
   // handle get rooms
-  handleGetRooms = async() => {
+  handleGetRooms = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_KEY}/get_rooms`)
     setAllRooms(res.data.rooms)
   }
@@ -52,34 +55,42 @@ const Rooms = () => {
 
 
   return (
-    <div className={styles.rooms}>
-      <div onClick={() => setShowAddMembPopup("join-group")} className={styles.newGroup}>
-        Join Group
-      </div>
-      <div onClick={() => setShowAddMembPopup("create-group")} className={styles.newGroup}>
-        + Create Group
-      </div>
-
-      <span className={styles.heading}>Rooms</span>
-
-      <ul>
-        {allRooms?.map((room) => (
-          <li onClick={() => handleGetChats(room.id)} style={{ background: roomId === room.id ? "#00000040" : "#343540" }} key={room.id}>
-            {room.room_name}
-          </li>
-        ))}
-      </ul>
-
-      <div className={styles.currUser}>
-        <span className="material-symbols-outlined">
-          account_circle
+    <div className={`${styles.roomsContainer}  ${isNavClosed ? styles.openNav: ""}`}>
+        <span onClick={()=>{isNavClosed? setIsNavClosed(false): setIsNavClosed(true)}} className={`material-symbols-outlined ${styles.toggleBtn}`}>
+          {isNavClosed? "chevron_left": "chevron_right"}
+         
         </span>
 
-        <h5>{currUser.name}</h5>
-      </div>
+      <div className={styles.rooms}>
 
-      <div onClick={() => handleLogOut()} className={styles.logOutBtn}>
-        Log Out
+        <div onClick={() => setShowAddMembPopup("join-group")} className={styles.newGroup}>
+          Join Group
+        </div>
+        <div onClick={() => setShowAddMembPopup("create-group")} className={styles.newGroup}>
+          + Create Group
+        </div>
+
+        <span className={styles.heading}>Rooms</span>
+
+        <ul>
+          {allRooms?.map((room) => (
+            <li onClick={() => handleGetChats(room.id)} style={{ background: roomId === room.id ? "#00000040" : "#343540" }} key={room.id}>
+              {room.room_name}
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.currUser}>
+          <span className="material-symbols-outlined">
+            account_circle
+          </span>
+
+          <h5>{currUser?.name}</h5>
+        </div>
+
+        <div onClick={() => handleLogOut()} className={styles.logOutBtn}>
+          Log Out
+        </div>
       </div>
     </div>
   );
