@@ -3,12 +3,10 @@ import styles from "./Rooms.module.css"
 import appContext from "../appContext/Context"
 import axios from "axios"
 import { handleGetChats } from './ChatSection'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
+export let handleGetRooms;
 const Rooms = () => {
-  // states
-  const [rooms, setRooms] = useState([]);
-
   // params
   const [searchParams, setSearchParams] = useSearchParams();
   const roomId = parseInt(searchParams.get("id"))
@@ -20,14 +18,19 @@ const Rooms = () => {
   const navigate = useNavigate()
 
   // context
-  const { showAddMembPopup, setShowAddMembPopup } = useContext(appContext)
+  const {  setShowAddMembPopup,allRooms, setAllRooms } = useContext(appContext)
+
+  // handle get rooms
+  handleGetRooms = async() => {
+    const res = await axios.get(`${process.env.REACT_APP_API_KEY}/get_rooms`)
+    setAllRooms(res.data.rooms)
+  }
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_KEY}/get_rooms`)
-      .then(res => setRooms(res.data.rooms))
+    handleGetRooms()
   }, []);
 
-  
+
 
   // handle log out 
   const handleLogOut = () => {
@@ -46,18 +49,21 @@ const Rooms = () => {
       .catch(err => console.log(err))
   }
 
- 
+
 
   return (
     <div className={styles.rooms}>
-      <div onClick={()=>setShowAddMembPopup(true)}  className={styles.newGroup}>
-        + New Group
+      <div onClick={() => setShowAddMembPopup("join-group")} className={styles.newGroup}>
+        Join Group
+      </div>
+      <div onClick={() => setShowAddMembPopup("create-group")} className={styles.newGroup}>
+        + Create Group
       </div>
 
       <span className={styles.heading}>Rooms</span>
 
       <ul>
-        {rooms?.map((room) => (
+        {allRooms?.map((room) => (
           <li onClick={() => handleGetChats(room.id)} style={{ background: roomId === room.id ? "#00000040" : "#343540" }} key={room.id}>
             {room.room_name}
           </li>

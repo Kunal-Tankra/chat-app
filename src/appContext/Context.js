@@ -5,9 +5,11 @@ const appContext = createContext()
 const Context = ({children}) => {
     // state to show popup
     const [showAddMembPopup, setShowAddMembPopup] = useState(false);
+    const [allRooms, setAllRooms] = useState([]);
 
     const contextData = {
-        showAddMembPopup, setShowAddMembPopup
+        showAddMembPopup, setShowAddMembPopup,
+        allRooms, setAllRooms
     }
 
 
