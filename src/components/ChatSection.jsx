@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from "./ChatSection.module.css"
 import axios from "axios"
 import io, { Socket } from 'socket.io-client';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { handleGetRooms } from './Rooms';
 
 
 export let handleGetChats
 
 const ChatSection = () => {
+    // navigate
+    const navigate = useNavigate()
 
     // refs
     const msgContainer = useRef(null)
@@ -139,6 +142,33 @@ const ChatSection = () => {
         }
     }
 
+    // handle delete group
+    const handleDeleteGroup = () => {
+
+        axios.delete(`${process.env.REACT_APP_API_KEY}/delete_room/${roomId}`)
+            .then((res) => {
+                navigate("/")
+                handleGetRooms()
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }
+
+    // handle leave the group
+    const handleLeaveGroup = () => {
+        axios.delete(`${process.env.REACT_APP_API_KEY}/leave_room/${currUser.id}/${roomId}`)
+            .then((res) => {
+                navigate("/")
+                handleGetChats(roomId)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+
+    }
 
     // useEffect(() => {
     //     console.log(scrollBarPosition)
@@ -186,10 +216,10 @@ const ChatSection = () => {
 
                                     <div className='d-flex gap-3 '>
 
-                                        <span className={styles.navBtns}>
+                                        <span onClick={handleLeaveGroup} className={styles.navBtns}>
                                             Leave
                                         </span>
-                                        <span className={styles.navBtns}>
+                                        <span onClick={handleDeleteGroup} className={styles.navBtns}>
                                             Delete
                                         </span>
                                     </div>
