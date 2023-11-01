@@ -108,7 +108,7 @@ const ChatSection = () => {
 
                         // call notification
                         console.log(audioRef)
-                        audioRef.current?.play().catch(err=>{
+                        audioRef.current?.play().catch(err => {
                             console.log(err, "err in play audio")
                         })
                     }
@@ -166,7 +166,7 @@ const ChatSection = () => {
                                 {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button> */}
-                                <div  id="navbarSupportedContent">
+                                <div id="navbarSupportedContent" className="d-flex align-items-center">
                                     <ul className="navbar-nav   ms-5 mb-lg-0 me-5">
 
                                         <li className="nav-item dropdown ">
@@ -180,7 +180,19 @@ const ChatSection = () => {
                                             </ul>
                                         </li>
 
+
+
                                     </ul>
+
+                                    <div className='d-flex gap-3 '>
+
+                                        <span className={styles.navBtns}>
+                                            Leave
+                                        </span>
+                                        <span className={styles.navBtns}>
+                                            Delete
+                                        </span>
+                                    </div>
 
                                 </div>
                             </div>

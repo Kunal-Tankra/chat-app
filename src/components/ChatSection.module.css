@@ -128,3 +128,8 @@
 .dropdown{
   background-color: black;
 }
+
+.navBtns{
+  color: whitesmoke;
+  cursor: pointer;
+}
