@@ -4,6 +4,7 @@ import axios from "axios"
 import io, { Socket } from 'socket.io-client';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { handleGetRooms } from './Rooms';
+import roomsStyles from "./Rooms.module.css"
 
 
 export let handleGetChats
@@ -26,6 +27,7 @@ const ChatSection = () => {
     const [roomInfo, setRoomInfo] = useState({});
     const [newMessage, setNewMessage] = useState('');
     const [scrollBarPosition, setScrollBarPosition] = useState(0);
+    const [isUserInGroup, setIsUserInGroup] = useState(false);
 
     // roomid
     const roomId = searchParams.get("id")
@@ -134,6 +136,20 @@ const ChatSection = () => {
                 .then(res => {
                     setMessages(res.data.room_info.messages)
                     setRoomInfo(res.data.room_info)
+
+                    const users = res.data.room_info.user_info
+                    // check the curr user is in the group or not
+                    let userInGrp = false
+                    for (const user of users) {
+                        if (user.user_id === currUser.id) {
+                            console.log("mil gya")
+                            userInGrp = true
+                            break;
+                        }
+                    }
+
+                    setIsUserInGroup(userInGrp)
+
                     setTimeout(() => {
 
                         handleSlideBottom()
@@ -255,21 +271,25 @@ const ChatSection = () => {
                             }
                         </div>
 
-                        <div className={styles.msgSend_container}>
-                            <input type="text" value={newMessage}
-                                onKeyDown={(e) => handleEnter(e)}
-                                onChange={(e) => setNewMessage(e.target.value)} placeholder='Send a message' />
-                            <button onClick={handleSendMessage} style={{
-                                backgroundColor: newMessage.length === 0 ? "transparent" : "#19C37D",
-                                color: newMessage.length === 0 ? "#6B6C7B" : "whitesmoke",
+                        {isUserInGroup ?
+                            <div className={styles.msgSend_container}>
+                                <input type="text" value={newMessage}
+                                    onKeyDown={(e) => handleEnter(e)}
+                                    onChange={(e) => setNewMessage(e.target.value)} placeholder='Send a message' />
+                                <button onClick={handleSendMessage} style={{
+                                    backgroundColor: newMessage.length === 0 ? "transparent" : "#19C37D",
+                                    color: newMessage.length === 0 ? "#6B6C7B" : "whitesmoke",
 
-                            }}>
-                                <span className="material-symbols-outlined">
-                                    send
-                                </span>
+                                }}>
+                                    <span className="material-symbols-outlined">
+                                        send
+                                    </span>
 
-                            </button>
-                        </div>
+                                </button>
+                            </div>
+                            :
+                            <p className={roomsStyles.heading} style={{textAlign: "center"}} >you are no longer to send message in this group</p>
+                        }
 
                     </>
                 }
