@@ -221,7 +221,7 @@ const ChatSection = () => {
                 {roomId &&
                     <>
                         {/* chat group name and info */}
-                        <nav className="navbar  pe-5 navbar-expand-lg navbar-dark bg-dark" >
+                        <nav className={`navbar  pe-5 navbar-expand-lg navbar-dark ${styles.bg_nav} ` } >
                             <div className="container-fluid">
                                 <span className="navbar-brand text-uppercase ms-5" style={{ letterSpacing: "1px" }}>{roomInfo.room_name}</span>
                                 {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

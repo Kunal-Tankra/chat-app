@@ -17,6 +17,7 @@
     border-radius: 20px;
     position: relative;
     border: solid 1px rgb(65, 65, 65);
+    background-color: #202123 !important;
 }
 
 .form-group{

@@ -61,7 +61,7 @@ const Popup = () => {
 
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container}`}>
             <form onSubmit={(e) => handleCreate_join(e)} className='bg-dark text-white container px-4 py-4'>
                 <span onClick={() => setShowAddMembPopup(null)} className={`material-symbols-outlined ${styles.close}`}>
                     close
