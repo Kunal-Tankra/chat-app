@@ -85,7 +85,7 @@ const Popup = () => {
 
                 }
 
-                <button type="submit" className="btn btn-primary">{showAddMembPopup === "join-group" ? "Join" : "Create"}</button>
+                <button type="submit" className=" btn  bg-secondary ">{showAddMembPopup === "join-group" ? "Join" : "Create"}</button>
 
             </form>
         </div>

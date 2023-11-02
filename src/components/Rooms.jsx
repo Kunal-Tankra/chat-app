@@ -63,9 +63,9 @@ const Rooms = () => {
 
       <div className={styles.rooms}>
 
-        <div onClick={() => setShowAddMembPopup("join-group")} className={styles.newGroup}>
+        {/* <div onClick={() => setShowAddMembPopup("join-group")} className={styles.newGroup}>
           Join Group
-        </div>
+        </div> */}
         <div onClick={() => setShowAddMembPopup("create-group")} className={styles.newGroup}>
           + Create Group
         </div>

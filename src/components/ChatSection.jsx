@@ -186,6 +186,21 @@ const ChatSection = () => {
 
     }
 
+    // hanlde join group
+    const handleJoinGrp = () => {
+        const url = `${process.env.REACT_APP_API_KEY}/create_user_and_room`
+        const payload = {
+            name: currUser.name,
+            room_name: roomInfo.room_name
+        }
+
+        axios.post(url, payload)
+            .then((res) => {
+                handleGetChats(roomId)
+            })
+            .catch((err) => console.log(err))
+    }
+
     // useEffect(() => {
     //     console.log(scrollBarPosition)
     // }, [scrollBarPosition]);
@@ -213,32 +228,42 @@ const ChatSection = () => {
                                     <span className="navbar-toggler-icon"></span>
                                 </button> */}
                                 <div id="navbarSupportedContent" className="d-flex align-items-center">
-                                    <ul className="navbar-nav   ms-5 mb-lg-0 me-5">
+                                    {isUserInGroup ?
+                                        <>
+                                            <ul className="navbar-nav   ms-5 mb-lg-0 me-5">
 
-                                        <li className="nav-item dropdown ">
-                                            <a className="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Members
-                                            </a>
-                                            <ul className={`dropdown-menu ${styles.dropDown} bg-dark`} aria-labelledby="navbarDropdown">
-                                                {roomInfo.user_info?.map(user => <li key={user.user_id} className="dropdown-item bg-dark text-light" >{user.user_name}</li>)}
+                                                <li className="nav-item dropdown ">
+                                                    <a className="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Members
+                                                    </a>
+                                                    <ul className={`dropdown-menu ${styles.dropDown} bg-dark`} aria-labelledby="navbarDropdown">
+                                                        {roomInfo.user_info?.map(user => <li key={user.user_id} className="dropdown-item bg-dark text-light" >{user.user_name}</li>)}
+
+
+                                                    </ul>
+                                                </li>
+
 
 
                                             </ul>
-                                        </li>
+
+                                            <div className='d-flex gap-3 '>
+
+                                                <span onClick={handleLeaveGroup} className={styles.navBtns}>
+                                                    Leave
+                                                </span>
+                                                <span onClick={handleDeleteGroup} className={styles.navBtns}>
+                                                    Delete
+                                                </span>
+                                            </div>
+                                        </>
+                                        :
 
 
-
-                                    </ul>
-
-                                    <div className='d-flex gap-3 '>
-
-                                        <span onClick={handleLeaveGroup} className={styles.navBtns}>
-                                            Leave
-                                        </span>
-                                        <span onClick={handleDeleteGroup} className={styles.navBtns}>
-                                            Delete
-                                        </span>
-                                    </div>
+                                        <button onClick={handleJoinGrp} className={`${styles.navBtns} btn  bg-secondary bg-gradient`}>
+                                            Join
+                                        </button>
+                                    }
 
                                 </div>
                             </div>
@@ -288,7 +313,7 @@ const ChatSection = () => {
                                 </button>
                             </div>
                             :
-                            <p className={roomsStyles.heading} style={{textAlign: "center"}} >you are no longer to send message in this group</p>
+                            <p className={roomsStyles.heading} style={{ textAlign: "center" }} >you are no longer to send message in this group</p>
                         }
 
                     </>
