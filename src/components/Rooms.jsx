@@ -46,7 +46,7 @@ const Rooms = () => {
       .then(res => {
         if (res.status === 200) {
           localStorage.removeItem("user_data")
-          navigate("/login")
+          navigate("/login_signUp")
         }
       })
       .catch(err => console.log(err))
