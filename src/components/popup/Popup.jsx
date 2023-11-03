@@ -12,7 +12,7 @@ const Popup = () => {
     const [joinRoomName, setJoinRoomName] = useState("");
 
     // context
-    const { showAddMembPopup, setShowAddMembPopup, allRooms } = useContext(appContext)
+    const { showAddMembPopup, setShowAddMembPopup, allRooms, setPopupMsgData } = useContext(appContext)
 
     // curr user from local storage
     const currUser = JSON.parse(localStorage.getItem("user_data"))
@@ -46,15 +46,23 @@ const Popup = () => {
 
         axios.post(url, payload)
             .then(res => {
+                let msg;
 
                 if (showAddMembPopup === "create-group") { //call if only creating the new group
 
                     handleGetRooms()
+                    msg = "Room Created."
                 }
                 else {                                     // get all chats and room info 
                     handleGetChats(roomId)
+                    msg = "Joined the room."
                 }
                 setShowAddMembPopup(null)
+                setPopupMsgData({
+                    open: true,
+                    msg,
+                    type: "success"
+                })
             })
             .catch(err => console.log(err, "err"))
     }

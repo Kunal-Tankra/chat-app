@@ -33,6 +33,11 @@ const Login_signUp = () => {
         localStorage.setItem("user_data", JSON.stringify(res.data.user_data))
         if (res.status === 200) {
           navigate("/")
+          setPopupMsgData({
+            open: true,
+            msg: "Log In Successfully.",
+            type: "success"
+        })
         }
 
       })
@@ -62,6 +67,11 @@ const Login_signUp = () => {
           id: data.user_id
         }
         localStorage.setItem("user_data", JSON.stringify(userData))
+        setPopupMsgData({
+          open: true,
+          msg: "Sign Up Successfully.",
+          type: "success"
+      })
         navigate("/")
       })
       .catch(err => console.log(err))
