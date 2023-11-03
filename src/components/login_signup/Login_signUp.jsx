@@ -69,7 +69,7 @@ const Login_signUp = () => {
     <>
       <h1 className='text-center mt-2' ><strong>Chat APP</strong></h1>
 
-      <div className='container col-4 mt-5 pt-3'>
+      <div className='container col-xl-4 col-sm-8 mt-5 pt-3'>
 
         <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
           <li className="nav-item" role="presentation">
