@@ -55,9 +55,9 @@ const Rooms = () => {
 
 
   return (
-    <div className={`${styles.roomsContainer}  ${isNavClosed ? styles.openNav: ""}`}>
+    <div className={`${styles.roomsContainer}  ${isNavClosed ? "":styles.openNav}`}>
         <span onClick={()=>{isNavClosed? setIsNavClosed(false): setIsNavClosed(true)}} className={`material-symbols-outlined ${styles.toggleBtn}`}>
-          {isNavClosed? "chevron_left": "chevron_right"}
+          {isNavClosed? "chevron_right": "chevron_left"}
          
         </span>
 
@@ -74,7 +74,7 @@ const Rooms = () => {
 
         <ul>
           {allRooms?.map((room) => (
-            <li onClick={() => handleGetChats(room.id)} style={{ background: roomId === room.id ? "#00000040" : "#343540" }} key={room.id}>
+            <li onClick={() =>{ handleGetChats(room.id); setIsNavClosed(true)}} style={{ background: roomId === room.id ? "#00000040" : "#343540" }} key={room.id}>
               {room.room_name}
             </li>
           ))}

@@ -136,10 +136,10 @@
   background-color: black;
 }
 
-.navBtns{
+/* .navBtns{
   color: whitesmoke;
   cursor: pointer;
-}
+} */
 
 /* media query */
 @media  screen and (max-width: 1024px) {
