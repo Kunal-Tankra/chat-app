@@ -221,13 +221,13 @@ const ChatSection = () => {
                 {roomId &&
                     <>
                         {/* chat group name and info */}
-                        <nav className={`navbar  pe-5 navbar-expand-lg navbar-dark ${styles.bg_nav} ` } >
+                        <nav className={`navbar  pe-5 navbar-expand-lg navbar-dark ${styles.bg_nav} ${styles.navbar}` } >
                             <div className="container-fluid">
                                 <span className="navbar-brand text-uppercase ms-5" style={{ letterSpacing: "1px" }}>{roomInfo.room_name}</span>
                                 {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button> */}
-                                <div id="navbarSupportedContent" className="d-flex align-items-center">
+                                <div id="navbarSupportedContent" style={{width: "100%"}} className="d-flex align-items-center justify-content-between">
                                     {isUserInGroup ?
                                         <>
                                             <ul className="navbar-nav   ms-5 mb-lg-0 me-5">
@@ -269,7 +269,7 @@ const ChatSection = () => {
                             </div>
                         </nav>
 
-                        <div id='msgContainer' ref={msgContainer} onScroll={(e) => { setScrollBarPosition(e.target.scrollTop) }} className={`${styles.chat_messages} `}>
+                        <div  ref={msgContainer} onScroll={(e) => { setScrollBarPosition(e.target.scrollTop) }} className={`${styles.chat_messages} `}>
                             {messages.map((msg) => (
                                 // msgRight -> for right message
                                 <div key={msg.id} className={`${styles.message} ${currUser.id === msg.user_id ? styles.msgRight : ""}`}>

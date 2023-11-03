@@ -8,6 +8,8 @@
   background-color: #343641;
 }
 
+
+
 .bg_nav{
   background: #202123;
 }
@@ -141,13 +143,27 @@
 
 /* media query */
 @media  screen and (max-width: 1024px) {
+  .navbar{
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+  }
+
   .chat_messages{
     padding-left: 10% ;
     padding-right: 10% ;
+    padding-top: 8rem;
+    height: 89%;
   }
 
   .msgSend_container{
     width: 80%;
     padding-right: 1rem;
+    position: fixed;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
   }
+
 }
