@@ -1,8 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import appContext from '../../appContext/Context';
 
 const Login_signUp = () => {
+  const {popupMsgData, setPopupMsgData} = useContext(appContext)
+
   // curr user
   const currUser = JSON.parse(localStorage.getItem("user_data"))
 
@@ -33,28 +36,36 @@ const Login_signUp = () => {
         }
 
       })
-      .catch(err => console.log(err))
+      .catch(err =>{
+        if(err.response.status === 401){
+        setPopupMsgData({
+          open: true,
+         msg: err.response.data.error,
+         type: "warning"
+        })
+        }
+      })
 
   }
 
   // submit the sign up form
-  const handleSignUpForm =(e)=>{
+  const handleSignUpForm = (e) => {
     e.preventDefault()
-    
+
 
     axios.post(`${process.env.REACT_APP_API_KEY}/register`, signUpData)
-    .then(res=>{
-      const data = res.data
-      const userData = {
-        name: data.user_name,
-        email: data.user_email,
-        id: data.user_id
-      }
-      localStorage.setItem("user_data", JSON.stringify(userData))
-      navigate("/")
-    })
-    .catch(err=>console.log(err))
-    
+      .then(res => {
+        const data = res.data
+        const userData = {
+          name: data.user_name,
+          email: data.user_email,
+          id: data.user_id
+        }
+        localStorage.setItem("user_data", JSON.stringify(userData))
+        navigate("/")
+      })
+      .catch(err => console.log(err))
+
 
   }
 
@@ -67,7 +78,8 @@ const Login_signUp = () => {
 
   return (
     <>
-      <h1 className='text-center mt-2' ><strong>Chat APP</strong></h1>
+      <h1  className='text-center mt-2' ><strong>Chat APP</strong></h1>
+    
 
       <div className='container col-xl-4 col-sm-8 mt-5 pt-3'>
 
@@ -110,20 +122,20 @@ const Login_signUp = () => {
             <form onSubmit={handleSignUpForm} >
 
               <div className="mb-4">
-                <input type="text" onChange={(e)=>setSignUpData({...signUpData, name:e.target.value})} id="registerName" className="form-control" required/>
+                <input type="text" onChange={(e) => setSignUpData({ ...signUpData, name: e.target.value })} id="registerName" className="form-control" required />
                 <label className="form-label" htmlFor="registerName">Name</label>
               </div>
 
 
 
               <div className="mb-4">
-                <input type="email" id="registerEmail" onChange={(e)=>setSignUpData({...signUpData, email:e.target.value})} className="form-control" required />
+                <input type="email" id="registerEmail" onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })} className="form-control" required />
                 <label className="form-label" htmlFor="registerEmail">Email</label>
               </div>
 
 
               <div className="mb-4">
-                <input type="password" id="registerPassword" onChange={(e)=>setSignUpData({...signUpData, password:e.target.value})} className="form-control" required />
+                <input type="password" id="registerPassword" onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })} className="form-control" required />
                 <label className="form-label" htmlFor="registerPassword">Password</label>
               </div>
 

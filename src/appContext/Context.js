@@ -6,10 +6,16 @@ const Context = ({children}) => {
     // state to show popup
     const [showAddMembPopup, setShowAddMembPopup] = useState(false);
     const [allRooms, setAllRooms] = useState([]);
+    const [popupMsgData, setPopupMsgData] = useState({
+        open: false,
+        msg: "",
+        type: ""
+    });
 
     const contextData = {
         showAddMembPopup, setShowAddMembPopup,
-        allRooms, setAllRooms
+        allRooms, setAllRooms,
+        popupMsgData, setPopupMsgData
     }
 
 
