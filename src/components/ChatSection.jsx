@@ -1,15 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from "./ChatSection.module.css"
 import axios from "axios"
 import io, { Socket } from 'socket.io-client';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { handleGetRooms } from './Rooms';
 import roomsStyles from "./Rooms.module.css"
+import appContext from '../appContext/Context';
 
 
 export let handleGetChats
 
 const ChatSection = () => {
+    // context
+    const { setPopupMsgData } = useContext(appContext)
+
     // navigate
     const navigate = useNavigate()
 
@@ -165,6 +169,11 @@ const ChatSection = () => {
             .then((res) => {
                 navigate("/")
                 handleGetRooms()
+                setPopupMsgData({
+                    type: "success",
+                    msg: "Deleted the Group.",
+                    open: true
+                })
             })
             .catch((error) => {
                 console.log(error);
@@ -178,6 +187,11 @@ const ChatSection = () => {
             .then((res) => {
                 navigate("/")
                 handleGetChats(roomId)
+                setPopupMsgData({
+                    type: "success",
+                    msg: "Leaved the Group.",
+                    open: true
+                })
             })
             .catch((error) => {
                 console.log(error);
@@ -196,7 +210,14 @@ const ChatSection = () => {
 
         axios.post(url, payload)
             .then((res) => {
-                handleGetChats(roomId)
+                if (res.status === 200) {
+                    setPopupMsgData({
+                        msg: "You have joined the group.",
+                        open: true,
+                        type: "success"
+                    })
+                    handleGetChats(roomId)
+                }
             })
             .catch((err) => console.log(err))
     }
@@ -221,13 +242,13 @@ const ChatSection = () => {
                 {roomId &&
                     <>
                         {/* chat group name and info */}
-                        <nav className={`navbar  pe-5 navbar-expand-lg navbar-dark ${styles.bg_nav} ${styles.navbar}` } >
+                        <nav className={`navbar  pe-5 navbar-expand-lg navbar-dark ${styles.bg_nav} ${styles.navbar}`} >
                             <div className="container-fluid">
                                 <span className="navbar-brand text-uppercase ms-5" style={{ letterSpacing: "1px" }}>{roomInfo.room_name}</span>
                                 {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button> */}
-                                <div id="navbarSupportedContent" style={{width: isUserInGroup&&  "100%"}} className={`d-flex align-items-center justify-content-between`}>
+                                <div id="navbarSupportedContent" style={{ width: isUserInGroup && "100%" }} className={`d-flex align-items-center justify-content-between`}>
                                     {isUserInGroup ?
                                         <>
                                             <ul className="navbar-nav   ms-5 mb-lg-0 me-5">
@@ -260,7 +281,7 @@ const ChatSection = () => {
                                         :
 
 
-                                        <button onClick={handleJoinGrp} className={`${styles.navBtns} btn  bg-secondary bg-gradient`}>
+                                        <button onClick={handleJoinGrp} className={` btn  bg-secondary bg-gradient`}>
                                             Join
                                         </button>
                                     }
@@ -269,7 +290,7 @@ const ChatSection = () => {
                             </div>
                         </nav>
 
-                        <div  ref={msgContainer} onScroll={(e) => { setScrollBarPosition(e.target.scrollTop) }} className={`${styles.chat_messages} `}>
+                        <div ref={msgContainer} onScroll={(e) => { setScrollBarPosition(e.target.scrollTop) }} className={`${styles.chat_messages} `}>
                             {messages.map((msg) => (
                                 // msgRight -> for right message
                                 <div key={msg.id} className={`${styles.message} ${currUser.id === msg.user_id ? styles.msgRight : ""}`}>

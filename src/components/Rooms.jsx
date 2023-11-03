@@ -7,12 +7,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export let handleGetRooms;
 const Rooms = () => {
+  const {setPopupMsgData} = useContext(appContext)
+
   // params
   const [searchParams, setSearchParams] = useSearchParams();
   const roomId = parseInt(searchParams.get("id"))
 
   // state
-  const [isNavClosed, setIsNavClosed] = useState(false);
+  const [isNavClosed, setIsNavClosed] = useState(true);
 
   // curr user from local storage
   const currUser = JSON.parse(localStorage.getItem("user_data"))
@@ -47,6 +49,11 @@ const Rooms = () => {
         if (res.status === 200) {
           localStorage.removeItem("user_data")
           navigate("/login_signUp")
+          setPopupMsgData({
+            type: "success",
+            msg: "Log Out Successfully.",
+            open: true
+        })
         }
       })
       .catch(err => console.log(err))
@@ -88,7 +95,7 @@ const Rooms = () => {
           <h5>{currUser?.name}</h5>
         </div>
 
-        <div onClick={() => handleLogOut()} className={styles.logOutBtn}>
+        <div onClick={handleLogOut} className={styles.logOutBtn}>
           Log Out
         </div>
       </div>
