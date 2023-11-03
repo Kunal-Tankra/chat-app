@@ -211,7 +211,7 @@ const ChatSection = () => {
         <>
             {/* audio message */}
             <audio ref={audioRef} controls style={{ display: "none" }}>
-                <source src="notification/Sneej.mp3" type="audio/mp3" />
+                <source src="notification/marimba.mp3" type="audio/mp3" />
                 Your browser does not support the audio element.
             </audio>
 
