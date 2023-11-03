@@ -8,7 +8,7 @@ const ProtectedRoute = ({Comp}) => {
 
     useEffect(() => {
         if(!localStorage.getItem("user_data")){
-            navigate("/login")
+            navigate("/login_signUp")
         }
     }, [navigate]);
 
