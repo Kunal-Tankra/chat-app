@@ -1,0 +1,25 @@
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .error-icon {
+    font-size: 5rem !important;
+    color: #36a8f4; /* Red color, you can change it to your preferred color */
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-top: 20px; /* Increase the top margin for spacing */
+  }
+  
+  p {
+    font-size: 1.5rem;
+    color: #777;
+  }
+  

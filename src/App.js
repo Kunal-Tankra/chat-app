@@ -7,6 +7,7 @@ import PopupMsg from './components/PopupMsg';
 import { LinearProgress } from '@mui/material';
 import { useContext } from 'react';
 import appContext from './appContext/Context';
+import NotFound from './components/404_NotFound/NotFound';
 
 function App() {
 // context
@@ -24,6 +25,7 @@ const {progressBarStatus} = useContext(appContext)
         <Routes>
           <Route exact path='/' element={<ProtectedRoute Comp={ChatApp} />} />
           <Route exact path='/login_signUp' element={<Login_signUp />} />
+          <Route exact path='/404' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
