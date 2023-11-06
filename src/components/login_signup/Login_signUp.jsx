@@ -5,7 +5,7 @@ import appContext from '../../appContext/Context';
 
 const Login_signUp = () => {
   // context
-  const {popupMsgData, setPopupMsgData, setPregressBarStatus} = useContext(appContext)
+  const {popupMsgData, setPopupMsgData, setProgressBarStatus} = useContext(appContext)
   
   // curr user
   const currUser = JSON.parse(localStorage.getItem("user_data"))
@@ -23,7 +23,7 @@ const Login_signUp = () => {
   // submit the login form
   const handleSubmitLogin = (e) => {
     e.preventDefault()
-    setPregressBarStatus("10")
+    setProgressBarStatus("10")
 
     const payload = {
       email,
@@ -53,11 +53,11 @@ const Login_signUp = () => {
         }
       })
       .finally(()=>{
-        setPregressBarStatus("100")
+        setProgressBarStatus("100")
         
         setTimeout(() => {
           
-          setPregressBarStatus("0")
+          setProgressBarStatus("0")
         }, 700);
 
       })
@@ -67,6 +67,7 @@ const Login_signUp = () => {
   // submit the sign up form
   const handleSignUpForm = (e) => {
     e.preventDefault()
+    setProgressBarStatus("10")
 
 
     axios.post(`${process.env.REACT_APP_API_KEY}/register`, signUpData)
@@ -86,6 +87,14 @@ const Login_signUp = () => {
         navigate("/")
       })
       .catch(err => console.log(err))
+      .finally(()=>{
+        setProgressBarStatus("100")
+        
+        setTimeout(() => {
+          
+          setProgressBarStatus("0")
+        }, 700);
+      })
 
 
   }

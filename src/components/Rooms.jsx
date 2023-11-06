@@ -23,7 +23,7 @@ const Rooms = () => {
   const navigate = useNavigate()
 
   // context
-  const { setShowAddMembPopup, allRooms, setAllRooms } = useContext(appContext)
+  const { setShowAddMembPopup, allRooms, setAllRooms , setProgressBarStatus } = useContext(appContext)
 
   // handle get rooms
   handleGetRooms = async () => {
@@ -39,7 +39,7 @@ const Rooms = () => {
 
   // handle log out 
   const handleLogOut = () => {
-
+    setProgressBarStatus("10")
 
     const payload = {
       user_id: currUser.id
@@ -57,6 +57,13 @@ const Rooms = () => {
         }
       })
       .catch(err => console.log(err))
+      .finally(()=>{
+        setProgressBarStatus("100")
+
+        setTimeout(() => {
+          setProgressBarStatus("0")
+        }, 700);
+      })
   }
 
 

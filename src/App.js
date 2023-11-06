@@ -10,14 +10,16 @@ import appContext from './appContext/Context';
 
 function App() {
 // context
-const {pregressBarStatus} = useContext(appContext)
+const {progressBarStatus} = useContext(appContext)
 
 
   return (
     <>
       <BrowserRouter>
-        <LinearProgress variant="determinate" value={pregressBarStatus} style={{ backgroundColor: 'transparent', position: "fixed", top: "0", width: "100%", zIndex: "100" }}
+      {progressBarStatus !== "0" && 
+        <LinearProgress variant="determinate" value={progressBarStatus} style={{ backgroundColor: 'transparent', position: "fixed", top: "0", width: "100%", zIndex: "100" }}
         />
+      }
         <PopupMsg />
         <Routes>
           <Route exact path='/' element={<ProtectedRoute Comp={ChatApp} />} />

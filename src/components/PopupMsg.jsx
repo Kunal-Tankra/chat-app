@@ -11,7 +11,7 @@ const PopupMsg = () => {
 
     return (
         <>
-            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={popupMsgData.open} autoHideDuration={6000} onClose={()=>setPopupMsgData({...popupMsgData, open: false})}>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={popupMsgData.open} autoHideDuration={4000} onClose={()=>setPopupMsgData({...popupMsgData, open: false})}>
                 <Alert onClose={()=>setPopupMsgData({...popupMsgData, open: false})} severity={popupMsgData.type} sx={{ width: '100%' }}>
                     {popupMsgData.msg}
                 </Alert>

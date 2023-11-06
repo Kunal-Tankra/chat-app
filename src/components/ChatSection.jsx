@@ -12,7 +12,7 @@ export let handleGetChats
 
 const ChatSection = () => {
     // context
-    const { setPopupMsgData } = useContext(appContext)
+    const { setPopupMsgData, setProgressBarStatus } = useContext(appContext)
 
     // navigate
     const navigate = useNavigate()
@@ -132,9 +132,11 @@ const ChatSection = () => {
     handleGetChats = (id) => {
         if (id) {
 
-            console.log("in handle get chats,")
             // set id in params
             setSearchParams({ id });
+
+            setProgressBarStatus("10")
+
 
             axios.get(`${process.env.REACT_APP_API_KEY}/get_room_info/${id}`)
                 .then(res => {
@@ -146,7 +148,6 @@ const ChatSection = () => {
                     let userInGrp = false
                     for (const user of users) {
                         if (user.user_id === currUser.id) {
-                            console.log("mil gya")
                             userInGrp = true
                             break;
                         }
@@ -158,6 +159,15 @@ const ChatSection = () => {
 
                         handleSlideBottom()
                     }, 0);
+                })
+                .catch(err=>console.log(err))
+                .finally(()=>{
+                    setProgressBarStatus("100")
+
+                    setTimeout(() => {
+                        setProgressBarStatus("0")
+                    }, 700);
+
                 })
         }
     }
@@ -186,7 +196,7 @@ const ChatSection = () => {
         axios.delete(`${process.env.REACT_APP_API_KEY}/leave_room/${currUser.id}/${roomId}`)
             .then((res) => {
                 navigate("/")
-                handleGetChats(roomId)
+                // handleGetChats(roomId)
                 setPopupMsgData({
                     type: "success",
                     msg: "Leaved the Group.",
