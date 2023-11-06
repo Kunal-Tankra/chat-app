@@ -11,11 +11,13 @@ const Context = ({children}) => {
         msg: "",
         type: ""
     });
+    const [pregressBarStatus, setPregressBarStatus] = useState("0");
 
     const contextData = {
         showAddMembPopup, setShowAddMembPopup,
         allRooms, setAllRooms,
-        popupMsgData, setPopupMsgData
+        popupMsgData, setPopupMsgData,
+        pregressBarStatus, setPregressBarStatus
     }
 
 

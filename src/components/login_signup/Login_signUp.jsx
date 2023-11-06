@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import appContext from '../../appContext/Context';
 
 const Login_signUp = () => {
-  const {popupMsgData, setPopupMsgData} = useContext(appContext)
-
+  // context
+  const {popupMsgData, setPopupMsgData, setPregressBarStatus} = useContext(appContext)
+  
   // curr user
   const currUser = JSON.parse(localStorage.getItem("user_data"))
 
@@ -22,6 +23,7 @@ const Login_signUp = () => {
   // submit the login form
   const handleSubmitLogin = (e) => {
     e.preventDefault()
+    setPregressBarStatus("10")
 
     const payload = {
       email,
@@ -49,6 +51,15 @@ const Login_signUp = () => {
          type: "warning"
         })
         }
+      })
+      .finally(()=>{
+        setPregressBarStatus("100")
+        
+        setTimeout(() => {
+          
+          setPregressBarStatus("0")
+        }, 700);
+
       })
 
   }
