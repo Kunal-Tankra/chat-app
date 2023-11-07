@@ -16,6 +16,7 @@ const {progressBarStatus} = useContext(appContext)
 
   return (
     <>
+    
       <BrowserRouter>
       {progressBarStatus !== "0" && 
         <LinearProgress variant="determinate" value={progressBarStatus} style={{ backgroundColor: 'transparent', position: "fixed", top: "0", width: "100%", zIndex: "100" }}
@@ -25,7 +26,9 @@ const {progressBarStatus} = useContext(appContext)
         <Routes>
           <Route exact path='/' element={<ProtectedRoute Comp={ChatApp} />} />
           <Route exact path='/login_signUp' element={<Login_signUp />} />
-          <Route exact path='/404' element={<NotFound />} />
+          
+          {/* show not found page if user hits other routs */}
+          <Route exact path='/*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
