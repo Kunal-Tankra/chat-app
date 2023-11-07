@@ -19,16 +19,27 @@ const Rooms = () => {
   // curr user from local storage
   const currUser = JSON.parse(localStorage.getItem("user_data"))
 
-  // location
+  // navigate
   const navigate = useNavigate()
 
+  
   // context
   const { setShowAddMembPopup, allRooms, setAllRooms , setProgressBarStatus } = useContext(appContext)
 
   // handle get rooms
   handleGetRooms = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_KEY}/get_rooms`)
-    setAllRooms(res.data.rooms)
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_KEY}/get_rooms`)
+      setAllRooms(res.data.rooms)
+      
+    } catch (err) {
+      if(err.code === "ERR_NETWORK"){
+        navigate("/*")
+        
+      }
+      
+      
+    }
   }
 
   useEffect(() => {

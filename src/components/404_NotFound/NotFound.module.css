@@ -1,4 +1,4 @@
-.not-found-container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,19 +7,29 @@
     background-color: #f0f0f0;
   }
   
-  .error-icon {
+  .error_icon {
     font-size: 5rem !important;
     color: #36a8f4; /* Red color, you can change it to your preferred color */
   }
   
-  h1 {
+  .heading {
     font-size: 2rem;
     color: #333;
-    margin-top: 20px; /* Increase the top margin for spacing */
+    margin-top: 20px; 
   }
   
-  p {
+  .sentence {
     font-size: 1.5rem;
     color: #777;
+  }
+
+  .back_button{
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    border: solid 1px rgb(163, 163, 163);
+    padding: .3rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
   }
   
