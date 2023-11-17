@@ -137,7 +137,7 @@ const Login_signUp = () => {
 
 
               <div className="mb-4">
-                <input type="text" id="loginPassword" className="form-control" onChange={(e) => setPassword(e.target.value)} required />
+                <input type="password" id="loginPassword" className="form-control" onChange={(e) => setPassword(e.target.value)} required />
                 <label className="form-label" htmlFor="loginPassword">Password</label>
               </div>
               <button type="submit" className="btn btn-primary btn-block mb-4">Log in</button>
